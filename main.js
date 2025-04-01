@@ -1,6 +1,6 @@
 import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.3.0';
 
-const summarization = await pipeline('summarization', 'Xenova/t5-base');
+const summarization = await pipeline('summarization', 'Xenova/bart-large-cnn');
 const longTextInput = document.getElementById('long-text-input');
 const generateButton = document.getElementById('generate-button');
 const output = document.getElementById('output-div');
@@ -10,22 +10,23 @@ generateButton.addEventListener('click', async () => {
     spinner.classList.add('show');
     generateButton.setAttribute("disabled", true);
 
-    const input = longTextInput.value;
-    
-    // Estimate length by word count (you can also use input.length / 4 for a rough token estimate)
-    const wordCount = input.trim().split(/\s+/).length;
+    const input = longTextInput.value.trim();
+    const wordCount = input.split(/\s+/).length;
 
-    // Set summarization length dynamically as a fraction
-    const min_length = Math.floor(wordCount * 0.2); // e.g. 20% of the input
-    const max_length = Math.floor(wordCount * 0.5); // cap at 50% of the input
+    // Estimate token count (Bart tokenizer uses ~1.3-1.5 tokens per word)
+    const estimatedTokenCount = Math.floor(wordCount * 1.4);
+
+    const min_length = Math.floor(estimatedTokenCount * 0.5);  // 50% of tokens
+    const max_length = Math.floor(estimatedTokenCount * 0.9);  // 90%
 
     const result = await summarization(input, {
-        min_length,
-        max_length,
-    });
+        min_length: 120,  // ~3–6 sentences
+        max_length: 250,  // optional, to cap it
+      });
 
     output.innerHTML = result[0].summary_text;
     spinner.classList.remove('show');
     generateButton.removeAttribute("disabled");
     output.style.display = 'block';
 });
+
