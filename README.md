@@ -1,6 +1,6 @@
 # lightweight-web-summarizer
 
-This is a client-side summarization tool built using Transformers.js and the Xenova/bart-large-cnn model. It runs entirely in your browser, with no backend or server interaction.
+This is a client-side summarization tool built using Transformers.js and the Xenova/distilbart-cnn-6-6. It runs entirely in your browser, with no backend or server interaction.
 
 ## Features
 **Summarize long-form text using a powerful transformer model**

@@ -1,79 +1,155 @@
-* {
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  .container {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 600px;
-  }
-  
-  textarea {
-    width: 100%;
-    height: 200px;
-    border-radius: 5px;
-    padding: 15px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    resize: none;
-  }
-  
-  button {
-    display: block;
-    width: 100%;
-    margin: 20px 0;
-    padding: 10px;
-    background-color: #3498db;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-  }
-  
-  button:hover {
-    background-color: #2980b9;
-  }
-  
-  button:disabled {
-    background-color: #b3c2c8;
-    cursor: not-allowed;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  #spinner {
-    display: none;
-    margin-right: 10px;
-    animation: spin 1s linear infinite;
-  }
-  
-  #spinner.show {
-    display: inline-block;
-  }
-  
-  #output-div {
-    display: none;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 5px;
-    font-size: 16px;
-  }
+:root {
+  /* Light Theme Colors */
+  --base: #f6fefe; 
+  --primary: #26d9cd; 
+  --secondary: #9f91ed;
+  --accent: #b562e4;
+  --text: #031110; 
+  --highlight: #cccccc; 
+}
+
+/* Dark Theme Colors */
+.dark-mode {
+  --base: #010909; 
+  --primary: #26d9cd; 
+  --secondary: #20126e;
+  --accent: #6d1b9d;
+  --text: #eefcfb; 
+  --highlight: #cccccc; 
+}
+
+
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  background: var(--base);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.navbar {
+  background: #ffffff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.navbar h2 {
+  margin: 0;
+  font-size: 0.75rem;
+}
+
+.about-link {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 500;
+}
+
+.main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  overflow: auto;
+}
+
+.chat-history {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Wrap for each entry to control alignment */
+.chat-line {
+  display: flex;
+  width: 100%;
+}
+
+/* Align user to the right */
+.chat-line.user {
+  justify-content: flex-end;
+}
+
+/* Align bot to the left */
+.chat-line.bot {
+  justify-content: flex-start;
+}
+
+.chat-entry {
+  max-width: 70%;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.chat-entry.user {
+  border-left: none;
+  border-right: 4px solid #007bff;
+  background-color: #e8f0ff;
+  align-self: flex-end;
+}
+
+.chat-entry.bot {
+  border-left: 4px solid #28a745;
+  background-color: #f0fff2;
+}
+
+.input-area {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  resize: vertical;
+  height: 120px;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.char-counter {
+  text-align: right;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+button {
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--secondary);
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none;
+}

@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summary Generator</title>
-    <link rel="stylesheet" href="./styles.css">
-    <script src="./main.js" type="module" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Side Summary Generator</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./main.js" type="module" defer></script>
 </head>
 <body>
-    <div class="container">
-        <textarea id="long-text-input" placeholder="Enter your copy here..."></textarea>
-        <button id="generate-button">
-          <span id="spinner">🔄</span> Generate Summary
-        </button>
-        <div id="output-div"></div>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <h1>Client Side Web Summarizer</h1>
+    <h2>Runs locally in your browser!</h2>
+    <a href="about.html" class="about-link">About</a>
+  </nav>
+
+  <main class="main-container">
+    <!-- Chat-like History -->
+    <div id="chat-history" class="chat-history"></div>
+
+    <!-- Input area -->
+    <div class="input-area">
+      <textarea id="long-text-input" placeholder="Enter your text here..."></textarea>
+      <div id="char-counter" class="char-counter">0 / 1500 characters</div>
+      <button id="generate-button">
+        <span id="spinner" class="hidden">🔄</span> Generate Summary
+      </button>
     </div>
+  </main>
 </body>
 </html>

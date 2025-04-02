@@ -1,32 +1,62 @@
 import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.3.0';
 
 const summarization = await pipeline('summarization', 'Xenova/distilbart-cnn-6-6');
-const longTextInput = document.getElementById('long-text-input');
-const generateButton = document.getElementById('generate-button');
-const output = document.getElementById('output-div');
+const inputEl = document.getElementById('long-text-input');
+const generateBtn = document.getElementById('generate-button');
 const spinner = document.getElementById('spinner');
+const historyEl = document.getElementById('chat-history');
 
-generateButton.addEventListener('click', async () => {
-    spinner.classList.add('show');
-    generateButton.setAttribute("disabled", true);
+const charCounter = document.getElementById('char-counter');
 
-    const input = longTextInput.value.trim();
-    const wordCount = input.split(/\s+/).length;
+inputEl.addEventListener('input', () => {
+  const charCount = inputEl.value.length;
+  const recommendedLimit = 1500;
+  charCounter.textContent = `${charCount} / ${recommendedLimit} characters`;
 
-    // Estimate token count (Bart tokenizer uses ~1.3-1.5 tokens per word)
-    const estimatedTokenCount = Math.floor(wordCount * 1.4);
-
-    const min_length = Math.floor(estimatedTokenCount * 0.5);  // 50% of tokens
-    const max_length = Math.floor(estimatedTokenCount * 0.9);  // 90%
-
-    const result = await summarization(input, {
-        min_length: 120,  // ~3–6 sentences
-        max_length: 250,  // optional, to cap it
-      });
-
-    output.innerHTML = result[0].summary_text;
-    spinner.classList.remove('show');
-    generateButton.removeAttribute("disabled");
-    output.style.display = 'block';
+  if (charCount > recommendedLimit) {
+    charCounter.style.color = 'red';
+    charCounter.textContent += ' — Too long, may reduce model accuracy.';
+  } else {
+    charCounter.style.color = '#444';
+  }
 });
 
+generateBtn.addEventListener('click', async () => {
+  const input = inputEl.value.trim();
+  if (!input) return;
+
+  // UI state
+  spinner.classList.remove('hidden');
+  generateBtn.disabled = true;
+
+  // Estimate summary length
+  const wordCount = input.split(/\s+/).length;
+  const estimatedTokenCount = Math.floor(wordCount * 1.4);
+  const min_length = Math.floor(estimatedTokenCount * 0.6);
+  const max_length = Math.floor(estimatedTokenCount * 1);
+
+  const result = await summarization(input, { min_length, max_length });
+  const summary = result[0].summary_text;
+
+  // Add to chat history
+  appendMessage('user', input);
+  appendMessage('bot', summary);
+
+  // Reset UI
+  inputEl.value = '';
+  spinner.classList.add('hidden');
+  generateBtn.disabled = false;
+});
+
+function appendMessage(role, text) {
+  const line = document.createElement('div');
+  line.className = `chat-line ${role}`;
+
+  const div = document.createElement('div');
+  div.className = `chat-entry ${role}`;
+  div.textContent = text;
+
+  line.appendChild(div);
+  historyEl.appendChild(line);
+  historyEl.scrollTop = historyEl.scrollHeight;
+}
