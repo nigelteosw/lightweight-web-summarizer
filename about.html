@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>About | Lightweight Web Summarizer</title>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <h1>AI Lightweight Web Summarizer</h1>
+        <a href="./index.html" class="about-link">← Back</a>
+    </nav>
+
+    <main class="main-container">
+        <h1>About This Project</h1>
+
+        <p>
+            Modern AI models — like GPT, BERT, or T5 — are incredibly powerful, but they're also massive. Running them
+            often requires dedicated servers, expensive GPUs, and substantial energy consumption. Most AI summarization
+            services today rely on cloud infrastructure to perform inference, sending your data to remote data centers.
+        </p>
+
+        <!-- <div class="image-placeholder">[ Image: Data centers / cloud AI ]</div> -->
+
+        <p>
+            With the advancement of open standards like <strong>ONNX (Open Neural Network Exchange)</strong> and tools
+            like <strong>Transformers.js</strong>, it's now possible to run smaller, distilled AI models <em>entirely in
+                your browser</em>. No backend servers, no GPUs — just pure, client-side inference powered by your own
+            device.
+        </p>
+
+        <!-- <div class="image-placeholder">[ Image: In-browser model flow ]</div> -->
+
+        <p>
+            This tool uses <strong>ONNX Runtime Web</strong> under the hood — a lightweight, WebAssembly (WASM)-based
+            runtime that executes ONNX models using JavaScript. <strong>Transformers.js</strong>, built by Xenova, loads
+            and runs these models seamlessly in the browser using WASM and WebGPU/WebGL, eliminating the need for server
+            calls.
+        </p>
+
+        <!-- <div class="image-placeholder">[ Image: ONNX + Transformers.js stack ]</div> -->
+
+        <p>
+            Lightweight models like <code>Xenova/distilbart-cnn-6-6</code> make this possible. They are smaller, faster
+            to load, and still capable of generating high-quality summaries. As these models improve, they reduce our
+            dependence on large data centers — helping cut down energy consumption and improving accessibility.
+        </p>
+
+        <p>
+            Additionally, because the model runs entirely in your browser, your data is never sent to any server.
+            <strong>No input or output is saved or shared</strong>. This enhances privacy and security — especially for
+            sensitive or personal content.
+        </p>
+
+        <p>
+            This summarizer is part of a vision for a more accessible, efficient, and secure future of AI — where
+            powerful tools are democratized and run locally, not locked behind APIs.
+        </p>
+
+        <!-- <div class="image-placeholder">[ Image: Privacy / security focused illustration ]</div> -->
+    </main>
+</body>
+
+</html>
